@@ -9,7 +9,7 @@ export const fechaYHoraActual = () => {
   const segundosActual = new Date().getSeconds();
 
   return `${diaActual}/${mesActual}/${anioActual} ${horaActual}:${minutosActual}:${segundosActual}`;
-}
+};
 
 export function currencyFormatter({ currency, value }: ICurrencyFormatter) {
   const formatter = new Intl.NumberFormat('en-ES', {
@@ -21,8 +21,6 @@ export function currencyFormatter({ currency, value }: ICurrencyFormatter) {
 }
 
 export const exportDataToJSON = (data: {}) => {
-
-
   const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
     JSON.stringify(data)
   )}`;

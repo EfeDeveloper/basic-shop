@@ -52,7 +52,7 @@ const CartDawer = () => {
                         currency: 'COP',
                         value: item.unit_price,
                       })}
-                      <div>{item.initialQuantity}</div>
+                      <div>X {item.initialQuantity}</div>
                     </>
                   }
                 />
