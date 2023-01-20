@@ -83,7 +83,7 @@ export const ProductsProvider = ({ children }: any) => {
 
     const orderToDownload = {
       ...productOrder,
-      'hora y fecha': fechaYHoraActual(),
+      'fecha y hora de compra': fechaYHoraActual(),
       'total productos': countProducts,
       'total a pagar': totalValue,
     };
