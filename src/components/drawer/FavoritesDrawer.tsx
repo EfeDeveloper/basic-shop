@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Avatar, Drawer, Empty } from 'antd';
+import { Avatar, Button, Drawer, Empty, Tag } from 'antd';
 import { useQuery } from '@tanstack/react-query';
 import { DeleteOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
 import { useFavoritesStore } from '../../stores/favoritesStore';
 import { fetchProducts } from '../../api/products';
 import { currencyFormatter } from '../../utils';
@@ -61,6 +60,7 @@ const FavoritesDrawer = () => {
                     className="fav-drawer-item-img"
                   />
                   <div className="fav-drawer-item-body">
+                    <Tag className="fav-drawer-item-tag">{product.type}</Tag>
                     <div className="fav-drawer-item-name">{product.name}</div>
                     <div className="fav-drawer-item-price">
                       {currencyFormatter({ currency: 'COP', value: product.unit_price })}

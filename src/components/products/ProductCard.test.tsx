@@ -9,6 +9,11 @@ vi.mock('../../stores/cartStore', () => ({
     selector({ addProduct: mockAddProduct }),
 }));
 
+vi.mock('../../stores/favoritesStore', () => ({
+  useFavoritesStore: (selector: (s: unknown) => unknown) =>
+    selector({ toggle: vi.fn(), has: () => false }),
+}));
+
 const defaultProduct = {
   id: 1,
   name: 'Test Product',

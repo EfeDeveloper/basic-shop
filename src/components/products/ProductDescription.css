@@ -1,0 +1,14 @@
+.product-desc-price {
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: var(--text-base);
+}
+
+.product-desc-stock {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.product-desc-stock--out {
+  color: var(--color-danger);
+}

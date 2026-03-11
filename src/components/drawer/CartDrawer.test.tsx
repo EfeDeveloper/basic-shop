@@ -1,14 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import CartDrawer from './CartDawer';
+import CartDrawer from './CartDrawer';
 
 vi.mock('../../stores/cartStore', () => ({
   useCartStore: () => ({
     items: [],
     totalValue: 0,
+    countProducts: 0,
     isDrawerOpen: true,
     toggleDrawer: vi.fn(),
     removeProduct: vi.fn(),
+    increaseQuantity: vi.fn(),
+    decreaseQuantity: vi.fn(),
     emptyCart: vi.fn(),
     createOrderExport: vi.fn(),
   }),

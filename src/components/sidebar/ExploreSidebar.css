@@ -1,0 +1,122 @@
+.explore-sidebar-desktop {
+  display: none;
+}
+
+.explore-sidebar-desktop .explore-sidebar-v2 {
+  padding: var(--space-6) 0;
+}
+
+.explore-sidebar-desktop .explore-sidebar-v2-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 var(--space-4);
+  padding: 0 var(--space-6) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.explore-sidebar-desktop .explore-sidebar-v2-item {
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-base);
+  min-height: 44px;
+}
+
+.explore-sidebar-desktop .explore-sidebar-v2-icon {
+  font-size: 20px;
+  width: 24px;
+  text-align: center;
+}
+
+.explore-sidebar-desktop .explore-sidebar-v2-divider {
+  margin: var(--space-4) var(--space-6);
+}
+
+.explore-sidebar-desktop .explore-sidebar-v2-list:last-of-type {
+  padding-top: var(--space-2);
+  background: var(--color-bg-page);
+  border-top: 1px solid var(--color-border);
+}
+
+.explore-sidebar-desktop .explore-sidebar-v2-list:last-of-type .explore-sidebar-v2-item {
+  padding: var(--space-3) var(--space-6);
+}
+
+/* Sidebar v2 */
+.explore-sidebar-v2 {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+.explore-sidebar-v2-bottom {
+  margin-top: auto;
+}
+
+.explore-sidebar-v2-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 var(--space-4);
+  padding: 0 var(--space-4);
+}
+
+.explore-sidebar-v2-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.explore-sidebar-v2-list li {
+  margin: 0;
+}
+
+.explore-sidebar-v2-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  text-align: left;
+  border-radius: 0;
+  transition: background 0.15s;
+}
+
+.explore-sidebar-v2-item:hover {
+  background: var(--color-bg-page);
+}
+
+.explore-sidebar-v2-icon {
+  font-size: 18px;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.explore-sidebar-v2-divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: var(--space-4) 0;
+}
+
+/* Drawer específico */
+.explore-drawer.ant-drawer .ant-drawer-wrapper-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.explore-drawer.ant-drawer .ant-drawer-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}

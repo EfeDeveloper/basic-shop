@@ -4,15 +4,18 @@ Tienda online profesional construida con React, TypeScript, Vite y buenas práct
 
 ## ✨ Características
 
-- **Catálogo dinámico**: Productos desde Fake Store API con búsqueda y filtro por categoría
-- **Carrito de compras**: Añadir, restar cantidad y vaciar. Drawer lateral con total y resumen
-- **Favoritos**: Marcar productos como favoritos desde la card o el header
-- **Detalle de producto**: Modal al hacer clic en la card; cierre con X o clic fuera
-- **Resumen y pago**: Modal tipo Amazon con artículos y total; simulación de pago con loader y pantalla de éxito; descarga JSON y vaciado del carrito
-- **Diseño responsive**: Header con búsqueda e iconos, menú en drawer (tres líneas), slider hero con productos del catálogo, grid de cards adaptable
+- **Catálogo dinámico**: Productos desde Fake Store API con búsqueda en header y filtro por categoría
+- **Ordenación**: Por precio (asc/desc) y rating (mayor/menor)
+- **Carrito de compras**: Añadir, ajustar cantidad y vaciar. Drawer lateral con total y resumen; persiste en `localStorage`
+- **Favoritos**: Marcar productos como favoritos desde la card, el modal de detalle o el header. Drawer lateral con listado; persiste en `localStorage`
+- **Detalle de producto**: Modal unificado al hacer clic en la card o en el item de favoritos; acción de añadir al carrito y toggle favorito incluidos
+- **Resumen y pago**: Modal tipo Amazon con artículos y total; simulación de pago con loader y pantalla de éxito; descarga JSON de la orden
+- **Hero slider**: Carousel con productos aleatorios del catálogo
+- **Footer profesional**: Perks bar, columnas de links, contacto, newsletter y métodos de pago
+- **Diseño responsive**: Header con búsqueda e iconos, menú en drawer (hamburguesa), grid de cards adaptable
+- **CSS por componente**: Estilos divididos en archivos `*.css` colocados junto a cada componente, con design tokens globales en `src/styles/tokens.css`
 - **Clean Code**: Código limpio, organizado y tipado con TypeScript
 - **Tests**: Suite de tests con Vitest y React Testing Library
-- **CI/CD**: Pipeline en GitHub Actions (lint y tests)
 
 ## 🛠️ Tecnologías Utilizadas
 
@@ -20,7 +23,7 @@ Tienda online profesional construida con React, TypeScript, Vite y buenas práct
 - **TypeScript** — Tipado estático
 - **Vite 4** — Build tool y dev server
 - **Ant Design 4** — Componentes UI e iconos
-- **Zustand** — Estado global (carrito, favoritos, filtros)
+- **Zustand** — Estado global (carrito, favoritos, filtros) con persistencia `localStorage`
 - **TanStack React Query** — Datos del catálogo (cache y fetching)
 - **Vitest** — Tests unitarios
 - **Fake Store API** — Catálogo de productos
@@ -64,25 +67,13 @@ Tienda online profesional construida con React, TypeScript, Vite y buenas práct
 
 ## 📜 Scripts Disponibles
 
-### `npm run dev`
-
-Ejecuta la aplicación en modo desarrollo. La página se recargará al hacer cambios.
-
-### `npm run build`
-
-Compila TypeScript y construye la aplicación para producción en la carpeta `dist`.
-
-### `npm run preview`
-
-Sirve el build de producción para previsualizarlo localmente.
-
-### `npm test`
-
-Ejecuta los tests con Vitest (modo watch).
-
-### `npm run test:run`
-
-Ejecuta los tests una vez (útil para CI).
+| Script | Descripción |
+|--------|-------------|
+| `npm run dev` | Inicia el servidor de desarrollo con HMR |
+| `npm run build` | Compila TypeScript y genera el bundle de producción en `dist/` |
+| `npm run preview` | Sirve el build de producción localmente |
+| `npm test` | Ejecuta los tests en modo watch |
+| `npm run test:run` | Ejecuta los tests una sola vez (ideal para CI) |
 
 ## 🎨 Personalización
 
@@ -94,40 +85,70 @@ En `.env` puedes configurar:
 |----------|-------------|-------------|
 | `VITE_API_URL` | URL de la API de productos | Fake Store API |
 | `VITE_PLACEHOLDER_IMAGE` | Imagen cuando el producto no tiene imagen | URL de placeholder |
-| `VITE_HERO_SLIDE_1` | Imagen del primer slide del hero (opcional) | Imagen de Unsplash |
-| `VITE_HERO_SLIDE_2` | Imagen del segundo slide del hero (opcional) | Imagen de Unsplash |
 
 ### Estilos
 
-Los estilos globales y variables de diseño (colores, espaciado, tipografía) están en `src/index.css` usando variables CSS (`--color-primary`, `--space-4`, etc.).
+Los design tokens (colores, espaciado, tipografía) están en `src/styles/tokens.css` usando variables CSS (`--color-primary`, `--space-4`, etc.). Cada componente tiene su propio archivo CSS colocado junto a él. El punto de entrada `src/index.css` únicamente contiene `@import`s.
 
 ## 📁 Estructura del Proyecto
 
 ```
 src/
-├── api/              # Cliente API y mapeo de productos
-│   └── products.ts
-├── components/       # Componentes React
-│   ├── drawer/       # Carrito (CartDrawer)
-│   ├── header/       # Header con búsqueda e iconos
-│   ├── hero/         # Slider hero (HeroSlider)
-│   ├── products/     # Cards, lista, descripción
-│   ├── sidebar/      # Menú Explore (drawer)
-│   ├── search/       # Búsqueda
-│   └── ui/           # AppModal (modales unificados)
-├── screens/          # Pantallas
-│   └── HomeScreen.tsx
-├── stores/           # Zustand (carrito, favoritos, filtros)
-├── interfaces/       # Tipos TypeScript
-├── utils/            # Formateo, export JSON, fecha
+├── api/
+│   └── products.ts           # Fetch y mapeo desde Fake Store API
+├── components/
+│   ├── drawer/
+│   │   ├── CartDrawer.tsx    # Drawer del carrito + modal de resumen
+│   │   ├── CartDrawer.css
+│   │   ├── Drawers.css       # Estilos compartidos entre drawers
+│   │   ├── FavoritesDrawer.tsx
+│   │   └── FavoritesDrawer.css
+│   ├── header/
+│   │   ├── HeaderShop.tsx    # Header con búsqueda, carrito y favoritos
+│   │   └── HeaderShop.css
+│   ├── hero/
+│   │   ├── HeroSlider.tsx    # Carousel con productos del catálogo
+│   │   └── HeroSlider.css
+│   ├── products/
+│   │   ├── ProductCard.tsx
+│   │   ├── ProductCard.css
+│   │   ├── ProductDescription.tsx
+│   │   ├── ProductDescription.css
+│   │   ├── ProductDetailModal.tsx  # Modal de detalle reutilizable
+│   │   ├── ProductDetailModal.css
+│   │   ├── ProductsList.tsx
+│   │   └── ProductsList.css
+│   ├── sidebar/
+│   │   ├── ExploreSidebar.tsx  # Menú drawer (hamburguesa)
+│   │   └── ExploreSidebar.css
+│   └── ui/
+│       ├── AddToCartButton.tsx  # Botón reutilizable añadir al carrito
+│       ├── Buttons.css
+│       ├── AppModal.tsx         # Modal base compartido
+│       └── AppModal.css
+├── screens/
+│   ├── HomeScreen.tsx
+│   └── Footer.css
+├── stores/
+│   ├── cartStore.ts       # Zustand: carrito + persistencia
+│   ├── favoritesStore.ts  # Zustand: favoritos + persistencia
+│   └── filtersStore.ts    # Zustand: búsqueda, categorías, orden
+├── styles/
+│   ├── tokens.css         # Variables CSS y reset global
+│   └── layout.css         # app-layout, app-body, app-content
+├── interfaces/
+│   ├── productsInterfaces.ts
+│   └── utilsInterfaces.ts
+├── utils/
+│   └── index.ts           # currencyFormatter, exportDataToJSON, fecha
 ├── App.tsx
-├── index.css         # Estilos globales
-└── main.tsx          # Punto de entrada
+├── index.css              # Solo @imports
+└── main.tsx
 ```
 
 ## 🚀 Deployment
 
-El proyecto genera un build estático en `dist/` con `npm run build`. Puedes desplegarlo en Vercel, Netlify, GitHub Pages o cualquier host de archivos estáticos. Las variables de entorno deben configurarse en la plataforma con el prefijo `VITE_`.
+El proyecto genera un build estático en `dist/` con `npm run build`. Puedes desplegarlo en Vercel, Netlify, GitHub Pages o cualquier host de archivos estáticos. Configura las variables de entorno en la plataforma con el prefijo `VITE_`.
 
 ## 🤝 Contribuciones
 

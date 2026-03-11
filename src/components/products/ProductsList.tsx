@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Col, Row, Select, Spin, Tag, Typography } from 'antd';
+import { Col, Row, Select, Spin, Typography } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import { fetchProducts } from '../../api/products';
 import { useFiltersStore, type SortBy } from '../../stores/filtersStore';
@@ -107,15 +107,16 @@ const ProductsList = () => {
         <div className="products-filters-active">
           <span className="products-filters-active-label">Filtros activos:</span>
           {selectedCategories.map((cat) => (
-            <Tag
+            <button
               key={cat}
-              closable
-              onClose={() => toggleCategory(cat)}
-              closeIcon={<CloseOutlined />}
+              type="button"
               className="products-filter-chip-active"
+              onClick={() => toggleCategory(cat)}
+              aria-label={`Quitar filtro ${cat}`}
             >
               {cat}
-            </Tag>
+              <CloseOutlined className="products-filter-chip-close" />
+            </button>
           ))}
           <button type="button" className="products-filters-clear" onClick={clearFilters}>
             Limpiar filtros

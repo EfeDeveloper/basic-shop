@@ -13,7 +13,7 @@ import {
   RedoOutlined,
   CustomerServiceOutlined,
 } from '@ant-design/icons';
-import CartDrawer from '../components/drawer/CartDawer';
+import CartDrawer from '../components/drawer/CartDrawer';
 import FavoritesDrawer from '../components/drawer/FavoritesDrawer';
 import HeaderShop from '../components/header/HeaderShop';
 import ExploreSidebar from '../components/sidebar/ExploreSidebar';
