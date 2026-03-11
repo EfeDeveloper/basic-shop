@@ -1,0 +1,126 @@
+.header-shop {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: 64px;
+  padding: 0 var(--space-6);
+  background: var(--color-header-footer) !important;
+  line-height: 1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.header-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-header-text);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.header-search-wrap {
+  flex: 1;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.header-search-input {
+  border-radius: var(--radius-md) !important;
+}
+
+.header-search-input .ant-input {
+  border-radius: var(--radius-md);
+}
+
+.header-search-icon {
+  color: var(--color-text-secondary);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.header-icon-btn {
+  color: var(--color-header-text) !important;
+  font-size: var(--icon-size) !important;
+  width: 44px;
+  height: 44px;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+}
+
+.header-icon-btn .anticon {
+  font-size: var(--icon-size);
+}
+
+.header-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: var(--color-header-text) !important;
+}
+
+.header-cart-btn {
+  font-size: var(--icon-size-lg) !important;
+}
+
+.header-cart-btn .anticon {
+  font-size: var(--icon-size-lg);
+}
+
+.header-actions .ant-badge {
+  line-height: 0;
+}
+
+.header-actions .ant-badge-count {
+  min-width: 20px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 0 6px;
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.header-notif-empty {
+  padding: var(--space-6);
+  text-align: center;
+  color: var(--color-text-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.sidebar-toggle-mobile {
+  display: inline-flex;
+  color: var(--color-header-text) !important;
+  font-size: 20px;
+}
+
+.sidebar-toggle-mobile:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: var(--color-header-text) !important;
+}
+
+@media (max-width: 768px) {
+  .header-shop {
+    padding: 0 var(--space-4);
+    gap: var(--space-2);
+  }
+
+  .header-search-wrap {
+    max-width: none;
+  }
+
+  .header-logo {
+    font-size: 1.25rem;
+  }
+}

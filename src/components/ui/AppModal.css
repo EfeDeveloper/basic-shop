@@ -1,0 +1,59 @@
+.app-modal .ant-modal-content {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-hover);
+}
+
+.app-modal .ant-modal-close {
+  top: 0;
+  right: 0;
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  line-height: 48px;
+  font-size: 32px !important;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: transparent;
+  border-radius: 0 var(--radius-lg) 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+
+.app-modal .ant-modal-close:hover {
+  color: var(--color-text);
+  background: var(--color-bg-page);
+}
+
+.app-modal .ant-modal-close-x {
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: inherit;
+}
+
+.app-modal-close-icon {
+  font-size: 32px !important;
+  font-weight: 600;
+  line-height: 1;
+  display: block;
+  color: inherit;
+}
+
+.app-modal .ant-modal-header {
+  padding: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.app-modal .ant-modal-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.app-modal .ant-modal-body {
+  padding: var(--space-6);
+}

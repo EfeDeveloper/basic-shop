@@ -8,7 +8,7 @@ const MODAL_CLOSE_ICON = (
   </span>
 );
 
-export interface AppModalProps extends Omit<ModalProps, 'className'> {
+interface AppModalProps extends Omit<ModalProps, 'className'> {
   className?: string;
 }
 

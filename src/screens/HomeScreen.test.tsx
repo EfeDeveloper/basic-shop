@@ -10,8 +10,11 @@ vi.mock('../components/header/HeaderShop', () => ({
 vi.mock('../components/products/ProductsList', () => ({
   default: () => <div data-testid="products-list">ProductsList</div>,
 }));
-vi.mock('../components/drawer/CartDawer', () => ({
+vi.mock('../components/drawer/CartDrawer', () => ({
   default: () => <div data-testid="cart-drawer">CartDrawer</div>,
+}));
+vi.mock('../components/drawer/FavoritesDrawer', () => ({
+  default: () => <div data-testid="favorites-drawer">FavoritesDrawer</div>,
 }));
 vi.mock('../components/sidebar/ExploreSidebar', () => ({
   default: () => <div data-testid="sidebar">Sidebar</div>,
@@ -41,6 +44,6 @@ describe('HomeScreen', () => {
     expect(screen.getByTestId('products-list')).toBeInTheDocument();
     expect(screen.getByTestId('cart-drawer')).toBeInTheDocument();
     expect(screen.getByText(/Productos destacados/i)).toBeInTheDocument();
-    expect(screen.getByText(/Luma/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Luma/).length).toBeGreaterThan(0);
   });
 });

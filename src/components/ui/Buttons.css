@@ -1,0 +1,8 @@
+.btn-add-to-cart.ant-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  gap: var(--space-2);
+}
+

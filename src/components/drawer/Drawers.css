@@ -1,0 +1,20 @@
+/* ── Shared drawer styles ── */
+.app-drawer.ant-drawer .ant-drawer-header {
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) var(--space-6);
+}
+
+.app-drawer.ant-drawer .ant-drawer-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.app-drawer-subtitle {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
