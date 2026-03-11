@@ -1,14 +1,10 @@
 import { ICurrencyFormatter } from '../interfaces/utilsInterfaces';
 
-export const fechaYHoraActual = () => {
-  const diaActual = new Date().getDate();
-  const mesActual = new Date().getMonth();
-  const anioActual = new Date().getFullYear();
-  const horaActual = new Date().getHours();
-  const minutosActual = new Date().getMinutes();
-  const segundosActual = new Date().getSeconds();
-
-  return `${diaActual}/${mesActual}/${anioActual} ${horaActual}:${minutosActual}:${segundosActual}`;
+export const fechaYHoraActual = (): string => {
+  const now = new Date();
+  const date = now.toLocaleDateString('es-CO', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const time = now.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+  return `${date} ${time}`;
 };
 
 export function currencyFormatter({ currency, value }: ICurrencyFormatter) {

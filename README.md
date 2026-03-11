@@ -1,92 +1,152 @@
-# Basic-shop
+# Luma · Basic Shop
 
-Basic-shop is a simple yet powerful web application that allows users to select products, manage their shopping cart, and generate purchase orders. The app is designed to provide a seamless shopping experience, including inventory management and intuitive cart operations.
+Tienda online profesional construida con React, TypeScript, Vite y buenas prácticas de desarrollo. Catálogo de productos, carrito, favoritos y flujo de pago simulado.
 
-## Features
+## ✨ Características
 
-- **Shopping Cart**: Add products to your cart and manage them easily.
-- **Remove Items**: Remove individual items or clear the entire cart with a single action.
-- **Inventory Management**: Items are deducted from the general inventory as they are added to the cart.
-- **Purchase Order Generation**: Create a purchase order directly from your cart.
-- **Product Search**: Quickly find products using the integrated search bar.
-- **Product Details**: View detailed information for each product before adding to the cart.
-- **Responsive Design**: The interface adapts to different screen sizes for a better user experience.
-- **Cart Drawer**: Access and manage your cart from a convenient side drawer.
+- **Catálogo dinámico**: Productos desde Fake Store API con búsqueda y filtro por categoría
+- **Carrito de compras**: Añadir, restar cantidad y vaciar. Drawer lateral con total y resumen
+- **Favoritos**: Marcar productos como favoritos desde la card o el header
+- **Detalle de producto**: Modal al hacer clic en la card; cierre con X o clic fuera
+- **Resumen y pago**: Modal tipo Amazon con artículos y total; simulación de pago con loader y pantalla de éxito; descarga JSON y vaciado del carrito
+- **Diseño responsive**: Header con búsqueda e iconos, menú en drawer (tres líneas), slider hero con productos del catálogo, grid de cards adaptable
+- **Clean Code**: Código limpio, organizado y tipado con TypeScript
+- **Tests**: Suite de tests con Vitest y React Testing Library
+- **CI/CD**: Pipeline en GitHub Actions (lint y tests)
 
-## Demo
+## 🛠️ Tecnologías Utilizadas
 
-![Demo](docs/demo.gif)
+- **React 18** — Biblioteca de UI
+- **TypeScript** — Tipado estático
+- **Vite 4** — Build tool y dev server
+- **Ant Design 4** — Componentes UI e iconos
+- **Zustand** — Estado global (carrito, favoritos, filtros)
+- **TanStack React Query** — Datos del catálogo (cache y fetching)
+- **Vitest** — Tests unitarios
+- **Fake Store API** — Catálogo de productos
 
-## Installation
+## 📦 Instalación
 
-1. Make sure you have [Node.js](https://nodejs.org/) and npm installed.
-2. Clone the repository:
+1. **Verificar versión de Node**
+
    ```bash
-   git clone <repository-url>
+   node --version   # Recomendado: v18 o superior
+   ```
+
+2. **Clonar el repositorio**
+
+   ```bash
+   git clone https://github.com/EfeDeveloper/basic-shop.git
    cd basic-shop
    ```
-3. Install dependencies:
+
+3. **Instalar dependencias**
+
    ```bash
    npm install
    ```
-4. Start the development server:
+
+4. **Configurar variables de entorno**
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Edita `.env` si quieres cambiar la API o las imágenes del slider (opcional). Por defecto usa Fake Store API.
+
+5. **Iniciar el servidor de desarrollo**
+
    ```bash
    npm run dev
    ```
 
-## Usage
+   La aplicación estará disponible en la URL que indique Vite (normalmente `http://localhost:5173`).
 
-The following npm scripts are available:
+## 📜 Scripts Disponibles
 
-- `npm run dev`: Starts the development server using Vite.
-- `npm run build`: Compiles TypeScript and builds the app for production.
-- `npm run preview`: Serves the production build for preview.
+### `npm run dev`
 
-To start developing:
-1. Install dependencies with `npm install`.
-2. Run the development server with `npm run dev`.
-3. For a production build, use `npm run build` and then `npm run preview` to preview the build.
+Ejecuta la aplicación en modo desarrollo. La página se recargará al hacer cambios.
 
-Access the app at the local address provided by the dev server (usually `http://localhost:5173`).
+### `npm run build`
 
-## Project Structure
+Compila TypeScript y construye la aplicación para producción en la carpeta `dist`.
 
-The project is organized as follows:
+### `npm run preview`
 
-- `public/` — Static assets (e.g., demo.gif, shop.svg)
-- `src/` — Main source code
-  - `components/` — Reusable UI components
-    - `drawer/` — Cart drawer component
-    - `header/` — Header component
-    - `products/` — Product-related components
-    - `search/` — Search bar component
-  - `context/` — React context for products
-  - `data/` — Static product data
-  - `interfaces/` — TypeScript interfaces
-  - `screens/` — App screens (e.g., HomeScreen)
-  - `utils/` — Utility functions
-- `index.html` — Main HTML file
-- `package.json` — Project metadata, scripts, and dependencies
-- `tsconfig.json` — TypeScript configuration
-- `vite.config.ts` — Vite configuration
+Sirve el build de producción para previsualizarlo localmente.
 
-## Technologies Used
+### `npm test`
 
-This project leverages modern web technologies. For a complete list, review the `package.json` and project files.
+Ejecuta los tests con Vitest (modo watch).
 
-## Contribution
+### `npm run test:run`
 
-Contributions are welcome! To contribute:
-- Fork the repository
-- Create a new branch for your feature or fix
-- Submit a pull request
-- Please follow the existing coding standards
-- Report issues or suggest features via GitHub Issues
+Ejecuta los tests una vez (útil para CI).
 
-## License
+## 🎨 Personalización
 
-This project is licensed under the MIT License.
+### Variables de entorno
 
-## Authors and Acknowledgements
+En `.env` puedes configurar:
 
-Developed by myself. Special thanks to the open-source community for tools and libraries that made this project possible.
+| Variable | Descripción | Por defecto |
+|----------|-------------|-------------|
+| `VITE_API_URL` | URL de la API de productos | Fake Store API |
+| `VITE_PLACEHOLDER_IMAGE` | Imagen cuando el producto no tiene imagen | URL de placeholder |
+| `VITE_HERO_SLIDE_1` | Imagen del primer slide del hero (opcional) | Imagen de Unsplash |
+| `VITE_HERO_SLIDE_2` | Imagen del segundo slide del hero (opcional) | Imagen de Unsplash |
+
+### Estilos
+
+Los estilos globales y variables de diseño (colores, espaciado, tipografía) están en `src/index.css` usando variables CSS (`--color-primary`, `--space-4`, etc.).
+
+## 📁 Estructura del Proyecto
+
+```
+src/
+├── api/              # Cliente API y mapeo de productos
+│   └── products.ts
+├── components/       # Componentes React
+│   ├── drawer/       # Carrito (CartDrawer)
+│   ├── header/       # Header con búsqueda e iconos
+│   ├── hero/         # Slider hero (HeroSlider)
+│   ├── products/     # Cards, lista, descripción
+│   ├── sidebar/      # Menú Explore (drawer)
+│   ├── search/       # Búsqueda
+│   └── ui/           # AppModal (modales unificados)
+├── screens/          # Pantallas
+│   └── HomeScreen.tsx
+├── stores/           # Zustand (carrito, favoritos, filtros)
+├── interfaces/       # Tipos TypeScript
+├── utils/            # Formateo, export JSON, fecha
+├── App.tsx
+├── index.css         # Estilos globales
+└── main.tsx          # Punto de entrada
+```
+
+## 🚀 Deployment
+
+El proyecto genera un build estático en `dist/` con `npm run build`. Puedes desplegarlo en Vercel, Netlify, GitHub Pages o cualquier host de archivos estáticos. Las variables de entorno deben configurarse en la plataforma con el prefijo `VITE_`.
+
+## 🤝 Contribuciones
+
+Las contribuciones son bienvenidas. Por favor:
+
+1. Haz fork del proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit de tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📝 Licencia
+
+Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+
+## 👨‍💻 Autor
+
+**Edwin Villa** — [@EfeDeveloper](https://github.com/EfeDeveloper)
+
+---
+
+⭐ Si te gustó este proyecto, dale una estrella en GitHub.
