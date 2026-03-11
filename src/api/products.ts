@@ -1,6 +1,7 @@
 import { Product } from '../interfaces/productsInterfaces';
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'https://fakestoreapi.com/products';
+const DEFAULT_STOCK = 10;
 
 export interface FakeStoreProduct {
   id: number;
@@ -13,7 +14,7 @@ export interface FakeStoreProduct {
 }
 
 export function mapFakeStoreToProduct(item: FakeStoreProduct): Product {
-  const stock = item.rating?.count ?? 10;
+  const stock = item.rating?.count ?? DEFAULT_STOCK;
   return {
     id: item.id,
     name: item.title,

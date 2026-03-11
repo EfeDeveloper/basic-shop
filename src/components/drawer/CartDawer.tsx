@@ -14,7 +14,10 @@ import { currencyFormatter, fechaYHoraActual } from '../../utils';
 
 type SummaryStep = 'summary' | 'processing' | 'success';
 
-function generateOrderId() {
+const PAYMENT_DELAY_MS = 2500;
+const SUCCESS_DISPLAY_MS = 2800;
+
+function generateOrderId(): string {
   return `Luma-${Date.now().toString(36).toUpperCase()}`;
 }
 
@@ -48,10 +51,8 @@ const CartDrawer = () => {
       emptyCart();
       setOrderId(generateOrderId());
       setSummaryStep('success');
-      setTimeout(() => {
-        handleCloseSummary();
-      }, 2800);
-    }, 2500);
+      setTimeout(handleCloseSummary, SUCCESS_DISPLAY_MS);
+    }, PAYMENT_DELAY_MS);
   };
 
   return (
