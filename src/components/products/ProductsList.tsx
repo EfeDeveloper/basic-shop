@@ -1,21 +1,56 @@
-import { Col, Row } from 'antd';
-import { useContext } from 'react';
-import { ProductsContext } from '../../context/ProductsContext';
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { Col, Row, Spin, Typography } from 'antd';
+import { useMemo } from 'react';
+import { fetchProducts } from '../../api/products';
+import { useFiltersStore } from '../../stores/filtersStore';
 import { Product } from '../../interfaces/productsInterfaces';
 import ProductCard from './ProductCard';
 
+const { Text } = Typography;
+
 const ProductsList = () => {
-  const { productsDatabase } =
-    useContext(ProductsContext);
+  const { data: products = [], isLoading, isError, error } = useQuery({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+  });
+
+  const { searchText, selectedCategories } = useFiltersStore();
+
+  const filtered = useMemo(() => {
+    let list = products;
+    if (searchText.trim()) {
+      const q = searchText.toLowerCase();
+      list = list.filter((p) => p.name.toLowerCase().includes(q));
+    }
+    if (selectedCategories.length > 0) {
+      list = list.filter((p) => selectedCategories.includes(p.type));
+    }
+    return list;
+  }, [products, searchText, selectedCategories]);
+
+  if (isLoading) {
+    return (
+      <div className="products-list-loading">
+        <Spin size="large" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="products-list-error">
+        <Text type="danger">Error al cargar productos: {(error as Error).message}</Text>
+      </div>
+    );
+  }
 
   return (
-    <Row justify="center" gutter={[16, 16]}>
-      {productsDatabase.map((item: Product) => (
-        <Row key={item.id}>
-          <Col xs={24} sm={12} md={12} lg={8} xl={4} key={item.id}>
-            <ProductCard {...item} key={item.id} />
-          </Col>
-        </Row>
+    <Row gutter={[24, 24]} justify="start" className="products-grid">
+      {filtered.map((item: Product) => (
+        <Col xs={24} sm={12} md={8} lg={6} key={item.id}>
+          <ProductCard {...item} />
+        </Col>
       ))}
     </Row>
   );

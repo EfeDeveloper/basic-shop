@@ -1,31 +1,98 @@
-import { ShoppingOutlined } from '@ant-design/icons';
-import { Badge, Button, Layout, Typography } from 'antd';
-import { useContext } from 'react';
-import { ProductsContext } from '../../context/ProductsContext';
-
-const { Title } = Typography;
+import React, { useState } from 'react';
+import {
+  BellOutlined,
+  HeartOutlined,
+  MenuOutlined,
+  SearchOutlined,
+  ShoppingOutlined,
+} from '@ant-design/icons';
+import { Badge, Button, Dropdown, Input, Layout } from 'antd';
+import { useCartStore } from '../../stores/cartStore';
+import { useFavoritesStore } from '../../stores/favoritesStore';
+import { useFiltersStore } from '../../stores/filtersStore';
 
 const { Header } = Layout;
-const HeaderShop = () => {
-  const { countProducts, onOpenShoppingCart } = useContext(ProductsContext);
+
+interface HeaderShopProps {
+  onOpenSidebar?: () => void;
+}
+
+const HeaderShop = ({ onOpenSidebar }: HeaderShopProps) => {
+  const countProducts = useCartStore((s) => s.countProducts);
+  const toggleDrawer = useCartStore((s) => s.toggleDrawer);
+  const favoriteIds = useFavoritesStore((s) => s.ids);
+  const { searchText, setSearchText } = useFiltersStore();
+  const [notifOpen, setNotifOpen] = useState(false);
+
+  const notifMenu = {
+    items: [
+      {
+        key: 'empty',
+        label: (
+          <div className="header-notif-empty">
+            <BellOutlined style={{ fontSize: 24, color: 'var(--color-text-secondary)' }} />
+            <span>No hay notificaciones</span>
+          </div>
+        ),
+        disabled: true,
+      },
+    ],
+  };
 
   return (
-    <Header
-      className="site-layout-sub-header-background"
-      style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%' }}
-    >
-      <div style={{ textAlign: 'start', width: '80%', display: 'inline-block' }}>
-        <Title style={{ marginTop: 20, color: '#f7f7f7' }} level={3}>
-          EdFer-Dev Shop
-        </Title>
+    <Header className="header-shop">
+      {onOpenSidebar && (
+        <Button
+          type="text"
+          className="header-icon-btn sidebar-toggle-mobile"
+          icon={<MenuOutlined />}
+          onClick={onOpenSidebar}
+          aria-label="Abrir menú"
+        />
+      )}
+      <div className="header-logo">Luma</div>
+      <div className="header-search-wrap">
+        <Input
+          placeholder="Buscar productos..."
+          prefix={<SearchOutlined className="header-search-icon" />}
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          allowClear
+          className="header-search-input"
+        />
       </div>
-      <div style={{ textAlign: 'end', width: '20%', display: 'inline-block' }}>
-        <Badge count={countProducts}>
+      <div className="header-actions">
+        <Dropdown
+          menu={notifMenu}
+          trigger={['click']}
+          open={notifOpen}
+          onOpenChange={setNotifOpen}
+          placement="bottomRight"
+        >
           <Button
-            style={{ background: 'transparent', borderColor: 'transparent' }}
-            icon={<ShoppingOutlined style={{ fontSize: '25px', color: '#f7f7f7' }} />}
-            onClick={() => onOpenShoppingCart()}
-          ></Button>
+            type="text"
+            className="header-icon-btn"
+            icon={<BellOutlined />}
+            onClick={() => setNotifOpen(!notifOpen)}
+            aria-label="Notificaciones"
+          />
+        </Dropdown>
+        <Badge count={favoriteIds.length} offset={[-4, 4]}>
+          <Button
+            type="text"
+            className="header-icon-btn"
+            icon={<HeartOutlined />}
+            aria-label="Favoritos"
+          />
+        </Badge>
+        <Badge count={countProducts} offset={[-4, 4]}>
+          <Button
+            type="text"
+            className="header-icon-btn header-cart-btn"
+            icon={<ShoppingOutlined />}
+            onClick={toggleDrawer}
+            aria-label="Carrito"
+          />
         </Badge>
       </div>
     </Header>

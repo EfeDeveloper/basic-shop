@@ -1,17 +1,22 @@
+import React from 'react';
 import 'antd/dist/antd.css';
-import { ProductsProvider } from './context/ProductsContext';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './index.css';
 import HomeScreen from './screens/HomeScreen';
 
-const AppContext = ({ children }: any) => {
-  return <ProductsProvider>{children}</ProductsProvider>;
-};
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,
+    },
+  },
+});
 
 function App() {
   return (
-    <AppContext>
+    <QueryClientProvider client={queryClient}>
       <HomeScreen />
-    </AppContext>
+    </QueryClientProvider>
   );
 }
 

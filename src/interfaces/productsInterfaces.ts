@@ -5,6 +5,7 @@ export interface IPoducts {
 export interface Product {
   id: number;
   name: string;
+  description?: string;
   unit_price: number;
   stock: number;
   type: string;
