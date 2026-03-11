@@ -1,33 +1,43 @@
+import React, { useState } from 'react';
 import { Layout, Typography } from 'antd';
-import CartDawer from '../components/drawer/CartDawer';
+import CartDrawer from '../components/drawer/CartDawer';
 import HeaderShop from '../components/header/HeaderShop';
+import ExploreSidebar from '../components/sidebar/ExploreSidebar';
+import HeroSlider from '../components/hero/HeroSlider';
 import ProductsList from '../components/products/ProductsList';
-import Search from '../components/search/Search';
 
 const { Content, Footer } = Layout;
+const { Text } = Typography;
 
-const { Title } = Typography;
+const CREATED_YEAR = 2023;
 
 const HomeScreen = () => {
-  const currentYear = new Date();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const currentYear = new Date().getFullYear();
+  const yearRange =
+    currentYear > CREATED_YEAR ? `${CREATED_YEAR}–${currentYear}` : String(CREATED_YEAR);
 
   return (
-    <Layout>
-      <Layout>
-        <HeaderShop />
-        <Content>
-          <div className="home-screen-content-shild">
-            <Search/>
+    <Layout className="app-layout">
+      <HeaderShop onOpenSidebar={() => setSidebarOpen(true)} />
+      <Layout className="app-body">
+        <ExploreSidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        <Content className="app-content">
+          <HeroSlider />
+          <section className="products-section">
+            <div className="products-section-header">
+              <h2 className="products-section-title">Productos destacados</h2>
+            </div>
             <ProductsList />
-            <CartDawer />
-          </div>
+          </section>
         </Content>
-        <Footer className="footer">
-          <Title level={5} style={{ color: '#f7f7f7' }}>
-            EdFer-Dev Shop ©{currentYear.getFullYear()} Created by EdFer
-          </Title>
-        </Footer>
       </Layout>
+      <Footer className="app-footer">
+        <Text className="footer-text">
+          Luma © {yearRange} · Created by EdFer
+        </Text>
+      </Footer>
+      <CartDrawer />
     </Layout>
   );
 };

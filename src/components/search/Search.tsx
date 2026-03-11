@@ -1,39 +1,52 @@
-import { FilterOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Dropdown, Input } from 'antd';
-import { useContext, useState } from 'react';
-import { ProductsContext } from '../../context/ProductsContext';
+import React from 'react';
+import { SearchOutlined } from '@ant-design/icons';
+import { Input, Tag } from 'antd';
+import { useQuery } from '@tanstack/react-query';
+import { fetchProducts } from '../../api/products';
+import { useFiltersStore } from '../../stores/filtersStore';
+import { useMemo } from 'react';
 
 const Search = () => {
-  const { productsDatabase, filterByType, dynamicSearch } = useContext(ProductsContext);
+  const { data: products = [] } = useQuery({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+  });
 
-  const items = productsDatabase
-    .filter((item, index, self) => index === self.findIndex((t) => t.type === item.type))
-    .map((item) => {
-      return {
-        key: item.type,
-        label: (
-          <Checkbox
-            key={item.id}
-            onChange={(e) => filterByType(e.target.checked, item.type)}
-            value={item.type}
-          >
-            {item.type}
-          </Checkbox>
-        ),
-      };
-    });
+  const categories = useMemo(() => {
+    const set = new Set(products.map((p) => p.type));
+    return Array.from(set).sort();
+  }, [products]);
+
+  const { searchText, setSearchText, selectedCategories, toggleCategory } =
+    useFiltersStore();
 
   return (
-    <div className="seach-bar">
-      <Input
-        placeholder="Buscar producto"
-        style={{ width: '500px' }}
-        onChange={(e) => dynamicSearch(e.target.value)}
-      ></Input>
-
-      <Dropdown menu={{ items }} placement="bottomLeft">
-        <Button type="primary" size="middle" icon={<FilterOutlined />} />
-      </Dropdown>
+    <div className="search-and-filters">
+      <div className="search-bar">
+        <Input
+          placeholder="Buscar producto"
+          prefix={<SearchOutlined className="search-input-icon" />}
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          allowClear
+          className="search-input"
+        />
+      </div>
+      <div className="filter-chips">
+        {categories.map((cat) => {
+          const active = selectedCategories.includes(cat);
+          return (
+            <Tag
+              key={cat}
+              color={active ? 'blue' : 'default'}
+              onClick={() => toggleCategory(cat)}
+              className="filter-chip"
+            >
+              {cat}
+            </Tag>
+          );
+        })}
+      </div>
     </div>
   );
 };
