@@ -24,6 +24,7 @@ export function mapFakeStoreToProduct(item: FakeStoreProduct): Product {
     type: item.category,
     urlImage: item.image,
     initialQuantity: 1,
+    rating: item.rating,
   };
 }
 

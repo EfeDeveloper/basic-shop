@@ -1,7 +1,3 @@
-export interface IPoducts {
-  products: Product[];
-}
-
 export interface Product {
   id: number;
   name: string;
@@ -11,6 +7,7 @@ export interface Product {
   type: string;
   urlImage?: string;
   initialQuantity: number;
+  rating?: { rate: number; count: number };
 }
 
 export interface IProductDescription {

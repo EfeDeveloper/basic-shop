@@ -62,7 +62,7 @@ const CartDrawer = () => {
         <span className="cart-drawer-title">
           Tu carrito
           {allProducts.length > 0 && (
-            <span className="cart-drawer-subtitle">
+            <span className="app-drawer-subtitle">
               {countProducts} {countProducts === 1 ? 'producto' : 'productos'}
             </span>
           )}
@@ -72,7 +72,7 @@ const CartDrawer = () => {
       onClose={toggleDrawer}
       open={isDrawerOpen}
       width={380}
-      className="cart-drawer"
+      className="cart-drawer app-drawer"
     >
       {allProducts.length > 0 ? (
         <>
