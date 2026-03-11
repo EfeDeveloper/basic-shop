@@ -21,6 +21,7 @@ const HeaderShop = ({ onOpenSidebar }: HeaderShopProps) => {
   const countProducts = useCartStore((s) => s.countProducts);
   const toggleDrawer = useCartStore((s) => s.toggleDrawer);
   const favoriteIds = useFavoritesStore((s) => s.ids);
+  const openFavoritesDrawer = useFavoritesStore((s) => s.openDrawer);
   const { searchText, setSearchText } = useFiltersStore();
   const [notifOpen, setNotifOpen] = useState(false);
 
@@ -82,6 +83,7 @@ const HeaderShop = ({ onOpenSidebar }: HeaderShopProps) => {
             type="text"
             className="header-icon-btn"
             icon={<HeartOutlined />}
+            onClick={openFavoritesDrawer}
             aria-label="Favoritos"
           />
         </Badge>

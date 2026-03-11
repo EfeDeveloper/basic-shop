@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import { Product } from '../interfaces/productsInterfaces';
 import { exportDataToJSON, fechaYHoraActual } from '../utils';
 
@@ -24,7 +25,9 @@ function recalcTotals(items: CartItem[]) {
   return { countProducts, totalValue };
 }
 
-export const useCartStore = create<CartState>((set, get) => ({
+export const useCartStore = create<CartState>()(
+  persist(
+    (set, get) => ({
   items: [],
   isDrawerOpen: false,
   totalValue: 0,
@@ -104,4 +107,17 @@ export const useCartStore = create<CartState>((set, get) => ({
     };
     exportDataToJSON(orderToDownload);
   },
-}));
+    }),
+    {
+      name: 'luma-cart',
+      partialize: (state) => ({ items: state.items }),
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          const { countProducts, totalValue } = recalcTotals(state.items);
+          state.countProducts = countProducts;
+          state.totalValue = totalValue;
+        }
+      },
+    }
+  )
+);
